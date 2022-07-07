@@ -43,7 +43,7 @@ function App() {
   }, [])
 
   const users = useSelector(state => state.user.allUsers)
-  const useSelector(state => state.user.allUsers)
+  const posts = useSelector(state => state.user.allPosts)
 
   return (
     <div className="App">
