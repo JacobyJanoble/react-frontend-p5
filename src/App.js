@@ -36,7 +36,7 @@ function App() {
           dispatch({type: 'GET_CHANNELS', channels: channels})
           dispatch({type: 'GET_USERS', users: users})
           dispatch({type: 'LOGIN', username:localStorage.getItem('currentUserUsername')})
-          console.log("Finish fetching")
+          console.log("Finish fetching...")
         })
       })
     })
