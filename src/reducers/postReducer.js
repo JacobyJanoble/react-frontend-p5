@@ -14,7 +14,7 @@ const postReducer = (state = initialState, action) => {
         case 'ADD_POST' : {
             return {
                 ...state,
-                allPosts: {...state.allPosts, action.post},
+                allPosts: [...state.allPosts, action.post],
                 newPost: action.post
             }
         }

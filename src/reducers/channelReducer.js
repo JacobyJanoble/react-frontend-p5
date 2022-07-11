@@ -27,7 +27,7 @@ const channelReducer = (state = initialState, action) => {
                 allChannels: [...newAllChannels, moddedChannel]
             }
         }
-        default;
+        default:
         return state;
     }
 };
