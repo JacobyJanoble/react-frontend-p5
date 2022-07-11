@@ -195,7 +195,7 @@ const PostCard = (props) => {
 
   const handleStartEdit = (e) => {
     setEditForm(!editForm)
-  }
+  };
 
   const handleFormSubmit = (e) => {
     e.preventDefault()
@@ -216,7 +216,7 @@ const PostCard = (props) => {
       dispatchEvent({type:'UPDATE_POST', post: data})
       setEditForm(false)
     })
-  }
+  };
 
   const handleDelete = () => {
     fetch(`http://localhost:3000/posts/${props.post.id}`, {
@@ -227,13 +227,13 @@ const PostCard = (props) => {
     })
     dispatchEvent({type:'DELETE_POST', post: props.post})
     props.deletePost(props.post)
-  }
+  };
 
   const handleFormChange = (e) => {
     if (e.target.id === 'title') {
       setFormTitle(e.target.value)
     }
-  }
+  };
 
   const handleUpvote = (e) => {
     console.log(e.target)
@@ -273,7 +273,7 @@ const PostCard = (props) => {
         dispatch({type:'LIKE', like: data})
       })
     }
-  }
+  };
 
   const handleDownvote = (e) => {
     console.log(e.target)
@@ -313,12 +313,12 @@ const PostCard = (props) => {
         dispatch({type: 'DISLIKE, dislike: data'})
       })
     }
-  }
+  };
 
 
 
   return (
-    <>
+    <React.Fragment>
       <Grid item key={props.post.id} >
         <Card className={classes.card} variant='outlined'>
           {(props.userPage) ?
@@ -366,29 +366,45 @@ const PostCard = (props) => {
                   </div>
                 </div>
                 <br />
-                {(!editForm) ? <div><Typography>
+                { (!editForm) ?
+                <div>
+                  <Typography>
                     <Link to={`/posts/${props.post.id}`} className={classes.titleLink}>{formTitle}</Link>
                   </Typography>
                   <Typography className={classes.postContent}>
                     {formContent}
-                  </Typography></div> :
+                  </Typography>
+                </div> :
+                <div>
                   <form onSubmit={(e) => handleFormSubmit(e)}>
                     {(formTitle) ?
                       <input onChange={(e) => setFormTitle(e.target.value)} className={classes.textInputs} placeholder='Title(max 100) value={formTitle} style={width: 550} id="title"/>
 
-                    : null }
-                      <textarea onChange={(e) => setFormContent(e.target.value)} className={classes.textInputs} value={formTitle} placeholder="Text(optional)"
-
+                      <textarea onChange={(e) => setFormContent(e.target.value)} className={classes.textInputs} placeholder="Text(optional)" value={formContent} cols='80' rows='8'></textarea>
+                      <button type="submit" className={classes.submitButton}>Edit</button>
                   </form>
-                  }
+                </div> }
+
+                  <Typography className={classes.commentsText}>
+                    <ChatBubble className={classes.commentsIcon} fontSize='small' />
+                  </Typography>
+
               </div>
-
-
-
+              <div>
+                {(props.moderator) ?
+                <div>
+                  <br />
+                  <button onClick={() => handleDelete()} className={classes.deletePostButton} size='medium variant='contained color='primary ml={0}'>
+                  Delete
+                  </button>
+                </div>
+                : null
+                }
+              </div>
         </Card>
       </Grid>
-    </>
+    </React.Fragment>
   )
 }
 
-export default PostCard
+export default PostCard;
