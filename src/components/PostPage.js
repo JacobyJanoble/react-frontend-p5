@@ -43,7 +43,7 @@ const useStyles = makeStyles(theme => ({
     color: '#B7B7B7',
     display: 'inline0flex',
     marginLeft: theme.spacing(4),
-    marginRight: theme.spacing(1)
+    marginRight: theme.spacing(1),
     float: 'left'
   },
   topSpacer: {

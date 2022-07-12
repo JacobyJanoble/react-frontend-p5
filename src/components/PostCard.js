@@ -318,93 +318,86 @@ const PostCard = (props) => {
 
 
   return (
-    <React.Fragment>
-      <Grid item key={props.post.id} >
-        <Card className={classes.card} variant='outlined'>
-          {(props.userPage) ?
-            <div className={classes.cardActions}>
-              <Button onClick={(e) => handleStartEdit(e)} className={classes.buttons} size='medium' variant='contained' color='primary'>
-                Edit
-              </Button>
-              <br />
-              <Button onClick={() => handleDelete()} className={classes.altButtons} size='medium' variant='contained' color='primary ml={0}'>
-                Delete
-              </Button>
-              <Box className={classes.homeSelfLikeCounter}>Likes: {(props.post.likes) ? props.post.likes.length-props.post.dislikes.length : 0}</Box>
-            </div> :
-          <div className={classes.cardActions}>
-            {(props.post.user.id !== currentUser.id) ? <div>
-              <ArrowDropUp oncClick={(e) => handleUpvote(e)} fontSize='large' className={classes.likeArrow}/>
-              <Box className={classes.likeCounter}>{(props.post.likes) ? props.post.likes.length-props.post.dislikes.length : 0}</Box>
-              <ArrowDropDown ml={0} onClick={(e) => handleDownvote(e)} fontSize='large' className={classes.likeArrow}/>
+    <>
+    <Grid item key={props.post.id} >
+              <Card className={classes.card} variant="outlined">
+                  {(props.userPage) ?
+                    <div className={classes.cardActions}>
+                    <Button onClick={(e) => handleStartEdit(e)} size='medium' variant="contained" color="primary" className={classes.buttons}>
+                      Edit
+                    </Button>
+                    <br />
+                    <Button onClick={() => handleDelete()} size='medium' variant="contained" color="primary" ml={0} className={classes.altButtons}>
+                      Delete
+                    </Button>
+                    <Box className={classes.homeSelfLikeCounter}>Likes: {(props.post.likes) ? props.post.likes.length-props.post.dislikes.length : 0}</Box>
+                    </div> :
+                  <div className={classes.cardActions}>
+                    {(props.post.user.id !== currentUser.id) ? <div>
+                      <ArrowDropUpIcon onClick={(e) => handleUpVote(e)} fontSize='large' className={classes.likeArrow}/>
+                      <Box className={classes.likeCounter}>{(props.post.likes) ? props.post.likes.length-props.post.dislikes.length : 0}</Box>
+                      <ArrowDropDownIcon ml={0} onClick={(e) => handleDownVote(e)} fontSize='large' className={classes.likeArrow}/>
 
-              </div> :
+                    </div> :
+                    <div>
+                      <Box className={classes.selfLikeCounter}>
+                        {(props.post.likes) ? props.post.likes.length-props.post.dislikes.length : 0}
+                        <div className={classes.altHiddenText}>
+                          hel
+                        </div>
+                      </Box>
+                    </div>}
+                  </div>}
+                  <div className={classes.cardContent} >
+                      <div className={classes.channelUrl}>
+                          {(props.post.postable_type === 'Channel')
+                          ? 'r/' : null }
+                          {(props.post.postable)
+                          ? props.post.postable.title
+                          : null}
+                          <div className={classes.postedBy}>
+                            ○ Posted by: u/
+                            <Link to={`/u/${props.post.user.username}`} className={classes.postedByLink}>
+                              {(props.post.user) ? props.post.user.username : currentUser.username}
+                            </Link>
+                          </div>
+                      </div>
+                      <br />
+                      {(!editForm) ? <div><Typography >
+                          <Link to={`/posts/${props.post.id}`} className={classes.titleLink}>{formTitle}</Link>
+                      </Typography>
+                      <Typography className={classes.postContent}>
+                          {formContent}
+                      </Typography></div> :
+                      <form onSubmit={(e) => handleFormSubmit(e)}>
+                        {(formTitle) ?
+                          <input placeholder='Title(max 300)' value={formTitle} onChange={(e) => setFormTitle(e.target.value)} id="title" style={{width: 550}} className={classes.textInputs}/>
+                          : null
+                        }
 
-                <div>
-                  <Box className={classes.selfLikeCounter}>
-                    {(props.post.likes) ? props.post.likes.length-props.post.dislikes.length: 0}
-                    <div className={classes.altHiddenText}>
-                      testing
-                    </div>
-                  </Box>
-                </div>}
-              </div>}
+                        <textarea id="content" placeholder="Text(optional)" cols='80' rows='8' className={classes.textInputs} value={formContent} onChange={(e) => setFormContent(e.target.value)}></textarea>
+                        <button type="submit" className={classes.submitButton}>Edit</button>
+                      </form>}
+                      <Typography className={classes.commentsText}>
+                          <ChatBubbleIcon fontSize="small" className={classes.commentsIcon}/>{(props.post.posts) ? props.post.posts.length : 0} Comments
+                      </Typography>
 
-            <div className={classes.cardContent}>
-
-                <div className={classes.channelUrl}>
-                  {(props.post.postable_type === 'Channel')
-                  ? 'r/' :null}
-                  {(props.post.postable)
-                  ? props.post.postable.title
-                : null}
-                  <div className={classes.postedBy}>
-                      # u/ posted
-                      <Link to={`/u/${props.post.user.username}`} className={classes.postedByLink}>
-                        {(props.post.user) ? props.post.user.username : currentUser.username}
-                      </Link>
                   </div>
-                </div>
-                <br />
-                { (!editForm) ?
-                <div>
-                  <Typography>
-                    <Link to={`/posts/${props.post.id}`} className={classes.titleLink}>{formTitle}</Link>
-                  </Typography>
-                  <Typography className={classes.postContent}>
-                    {formContent}
-                  </Typography>
-                </div> :
-                <div>
-                  <form onSubmit={(e) => handleFormSubmit(e)}>
-                    {(formTitle) ?
-                      <input onChange={(e) => setFormTitle(e.target.value)} className={classes.textInputs} placeholder='Title(max 100) value={formTitle} style={width: 550} id="title"/>
-
-                      <textarea onChange={(e) => setFormContent(e.target.value)} className={classes.textInputs} placeholder="Text(optional)" value={formContent} cols='80' rows='8'></textarea>
-                      <button type="submit" className={classes.submitButton}>Edit</button>
-                  </form>
-                </div> }
-
-                  <Typography className={classes.commentsText}>
-                    <ChatBubble className={classes.commentsIcon} fontSize='small' />
-                  </Typography>
-
-              </div>
-              <div>
-                {(props.moderator) ?
-                <div>
-                  <br />
-                  <button onClick={() => handleDelete()} className={classes.deletePostButton} size='medium variant='contained color='primary ml={0}'>
-                  Delete
-                  </button>
-                </div>
-                : null
-                }
-              </div>
-        </Card>
-      </Grid>
-    </React.Fragment>
-  )
+                  <div>
+                    {(props.moderator) ?
+                    <div>
+                      <br />
+                      <Button onClick={() => handleDelete()} size='medium' variant="contained" color="primary" ml={0} className={classes.deletePostButton}>
+                        Delete
+                      </Button>
+                    </div>
+                    : null
+                    }
+                  </div>
+              </Card>
+    </Grid>
+  </>
+)
 }
 
 export default PostCard;

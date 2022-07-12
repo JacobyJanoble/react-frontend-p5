@@ -13,7 +13,7 @@ const Dashboard = () => {
     posts2 = posts1.filter(p => p.title.toLowerCase().includes(searchContent.toLowerCase()) || p.content.includes(searchContent.toLowerCase()))
   }
 
-  posts.sort({a, b} => (a.likes.length > b.likes.length) ? -1 : 1)
+  posts.sort((a, b) => (a.likes.length > b.likes.length) ? -1 : 1)
 
   return (
     <>
