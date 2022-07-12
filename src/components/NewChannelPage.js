@@ -1,4 +1,4 @@
-import { CallMissedSharp } from '@material-ui/icons';
+import { CallMissedSharp, Code } from '@material-ui/icons';
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -44,21 +44,38 @@ const NewChannelPage = () => {
     })
   }
   return (
+
+
     <div>
-      <Header />
-      <div>
-        Create Channel
-      </div>
-      <Card></Card>
-      <Card>
-        <form onSubmit={(e) => handleSubmit(e)}>
-          <input placeholder='Title(max 50)' id="title style={{width: 683}} />
-          <textarea id="description placeholder="Description(optional)" cols='100' rows='8'</textarea>
-          <button type="submit" className={classes.submitButton}>Create</button>
-        </form>
-      </Card>
-    </div>
+<Header />
+<div className={classes.topRibbon}>
+    Create a Channel
+</div>
+<Card className={classes.topRibbonDivider} variant="outlined"></Card>
+<Card className={classes.card} variant="outlined">
+    <form onSubmit={(e) => handleSubmit(e)}>
+        <input className={classes.textInputs} placeholder='Title(max 300)' id="title" style={{width: 683}} />
+        <textarea className={classes.textInputs} id="description" placeholder="Description(optional)" cols='100' rows='8'></textarea>
+        <button type="submit" className={classes.submitButton}>Create</button>
+    </form>
+</Card>
+</div>
+  // Same code but throwing a syntax error
+  // <div>
+  // <Header />
+  // <div>
+  //   Create Channel
+  // </div>
+  //   <Card className={classes.topRibbon}></Card>
+  //   <Card className={classes.topRibbonDivider} variant="outlined">
+  //     <form onSubmit={(e) => handleSubmit(e)}>
+  //       <input className={classes.textInputs} placeholder='Title(max 50)' id="title" style={{width: 683}} />
+  //       <textarea className={classes.textInputs} id="description" placeholder="Description(optional)" cols='100' rows='8'></textarea>
+  //       <button type="submit" className={classes.submitButton}>Create</button>
+  //     </form>
+  //   </Card>
+  // </div>
   )
 }
 
-export default NewChannelPage
+export default NewChannelPage;
