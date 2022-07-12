@@ -1,19 +1,18 @@
-import { CallMissedSharp } from '@material-ui/icons';
-import { Autocomplete } from '@material-ui/lab';
-import React from 'react'
-import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import React from 'react';
+import {useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from "react-router-dom";
 
-import Header from './Header';
+import Header from './Header'
 
-import TextField from '@material-ui/core';
-import Autocomplete from '@material-ui/lab';
-import Card from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import Card from '@material-ui/core/Card';
 
 
 
 const NewPostPage = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const currentUser = useSelector(state => state.user.currentUser)
@@ -46,7 +45,7 @@ const NewPostPage = () => {
       data.postable = {title: e.target.parentElement.parentElement.querySelector('#combo-box-demo').value}
       dispatch({type: 'ADD_POST', post: data})
       clearForm(e)
-      history.push('/dashboard')
+      navigate('/dashboard')
     })
   }
 

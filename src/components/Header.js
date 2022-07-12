@@ -1,7 +1,18 @@
 import React from 'react';
-import { Link, link } from 'react-router-dom';
-
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+
+import ChildCareIcon from '@material-ui/icons/ChildCare';
+import { fade, makeStyles } from '@material-ui/core/styles';
+import CreateIcon from '@material-ui/icons/Create';
+import SearchIcon from '@material-ui/icons/Search';
+import InputBase from '@material-ui/core/InputBase';
+import Avatar from '@material-ui/core/Avatar';
+import SubjectIcon from '@material-ui/icons/Subject';
+import ShowChartIcon from '@material-ui/icons/ShowChart';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+
 
 const Header = (props) => {
     const currentUser = useSelector(state => state.user.currentUser)

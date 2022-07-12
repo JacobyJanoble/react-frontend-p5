@@ -165,26 +165,27 @@ const ChannelPage = () => {
 
   return (
     <div>
-        {(currentChannelPosts) ?
-            <div>
-                <Header />
-                <div className={classes.topBackDrop}></div>
-                {(currentChannel) ? <div>
-                    <div className={classes.midBackDrop}>
-                        <div className={classes.channelRibbon}>
-                            <div className={classes.channelTitle}>
-                                {currentChannel.title}
-                                {(stateJoined) ? <Button variant="outlined" className={classes.joinedButton} onClick={(e) => handleJoin(e)} >Joined</Button> : <Button variant="contained" className={classes.joinButton} disableElevation onClick={(e) => handleJoin(e)}>Join</Button> }
-                            </div>
+            {(currentChannelPosts) ?
+                <div>
+                    <Header />
+                    <div className={classes.topBackDrop}></div>
+                    {(currentChannel) ? <div>
+                        <div className={classes.midBackDrop}>
+                            <div className={classes.channelRibbon}>
+                                <div className={classes.channelTitle}>
+                                    {currentChannel.title}
+                                    {(stateJoined) ? <Button variant="outlined" className={classes.joinedButton} onClick={(e) => handleJoin(e)} >Joined</Button> : <Button variant="contained" className={classes.joinButton} disableElevation onClick={(e) => handleJoin(e)}>Join</Button> }
+                                </div>
 
-                            <div className={classes.channelUrl}>
-                                readit/{currentChannel.title}
+                                <div className={classes.channelUrl}>
+                                    readit/{currentChannel.title}
+                                </div>
                             </div>
                         </div>
-                    </div>
-            </div> : null}
+                    </div> : null}
 
-            <div className={classes.bottomBackDrop}>
+
+                    <div className={classes.bottomBackDrop}>
                         <p className={classes.pSpacer}></p>
                         <div>
                             {
@@ -202,11 +203,11 @@ const ChannelPage = () => {
                         <Grid container className={classes.pList} spacing={2}>
                             {currentChannelPosts.map(post => <PostCard key={post.id} post={post} moderator={moderator} deletePost={removePost} channel={currentChannel}/>)}
                         </Grid>
+
                     </div>
-
-            <div/> : null }
-
-    </div>
+                </div>
+                : null }
+        </div>
   )
 }
 

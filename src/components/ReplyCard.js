@@ -1,23 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, resolvePath } from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-import Button from '@material-ui/core';
-import Card from '@material-ui/core';
-import CardActions from '@material-ui/core';
-import CardContent from '@material-ui/core';
-import CardMedia from '@material-ui/core';
-import Grid from '@material-ui/core';
-import Typography from '@material-ui/core';
-import { makeStyles } from '@material-ui/styles';
-import { Rating } from '@material-ui/lab';
+import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import Rating from '@material-ui/lab/Rating';
 import { Box } from '@material-ui/core';
-import { ArrowUpward } from '@material-ui/icons';
-import { ArrowDownward } from '@material-ui/icons';
-import { AccountCircle } from '@material-ui/icons';
-import { ChatBubble } from '@material-ui/icons';
-import { findAllByAltText } from '@testing-library/react';
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
 
 
 
@@ -136,7 +135,7 @@ const ReplyCard = (props) => {
 
   const classes = useStyles();
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const currentUser = useSelector(state => state.user.currentUser)
   const[reply, setReply] = useState(false)

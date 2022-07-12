@@ -1,7 +1,7 @@
 import { CallMissedSharp, Code } from '@material-ui/icons';
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Header from './Header';
 
 // https://www.billboard.com/charts/greatest-hot-100-singles/
@@ -19,7 +19,7 @@ const topSongs = [
 ]
 
 const NewChannelPage = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
@@ -40,7 +40,7 @@ const NewChannelPage = () => {
     .then(data => {
       console.log(data)
       dispatch({ type: 'ADD_CHANNEL', channel: data})
-      history.push('./channels')
+      navigate('./channels')
     })
   }
   return (

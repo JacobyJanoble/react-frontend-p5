@@ -1,16 +1,15 @@
 import React, { useState, useEffect} from 'react';
-
-
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import Grid from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles';
-import { ArrowDropUp } from '@material-ui/icons';
-import Card from '@material-ui/core';
+import PostCard from '../components/PostCard'
+import Header from '../components/Header'
 
-import PostCard from '../components/PostCard';
-import Header from '../components/Header';
+import Grid from '@material-ui/core/Grid';
+import { makeStyles } from '@material-ui/core/styles';
+import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
+import Card from '@material-ui/core/Card';
+
 
 const useStyles = makeStyles((theme) => ({
   cList: {

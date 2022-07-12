@@ -1,19 +1,18 @@
 import React, { useState } from 'react';
-import {useSelector, useDispatch} from 'react-redux';
-import { Link } from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core';
+import { useSelector } from 'react-redux';
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-import Header from './Header';
-
-import Card from '@material-ui/core';
-import Button from '@material-ui/core';
-import Grid from '@material-ui/core';
-import Typography from '@material-ui/core';
-import Box from '@material-ui/core';
-import { ArrowDropUp, NoEncryption } from '@material-ui/icons';
-import { ArrowDropDown } from '@material-ui/icons';
-import { ChatBubble } from '@material-ui/icons';
+import {useDispatch} from 'react-redux'
+import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import { Box } from '@material-ui/core';
+import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
 
 
 const PostCard = (props) => {
@@ -186,7 +185,8 @@ const PostCard = (props) => {
 
   const classes = useStyles()
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
+
   const currentUser = useSelector(state => state.user/currentUser)
 
   const [editForm, setEditForm] = useState(false)

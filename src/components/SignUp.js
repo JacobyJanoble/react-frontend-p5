@@ -1,6 +1,6 @@
 import React, { useState, useEffect} from 'react';
 import {useSelector, useDispatch } from 'react-redux';
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Signup = () => {
     const classes = useStyles();
-    let history = useHistory();
+    let navigate = useNavigate();
     const dispatch = useDispatch();
 
     const handleSubmit = (e) => {
@@ -69,7 +69,7 @@ const Signup = () => {
             localStorage.setItem('auth_key', userObj['auth_key'])
             localStorage.setItem('currentUserUsername', newUser.user.username)
             dispatch({type: 'SIGN_UP', user: newUser.user})
-            history.push('/dashboard')
+            navigate('/dashboard')
         })
     }
 

@@ -1,14 +1,15 @@
-import React, {useEffect, useState } from 'react';
-import {Link, useParams} from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { makeStyles } from '@material-ui/styles';
-import { SpeakerNotesIcon } from '@material-ui/icons/SpeakerNotes';
-import { Grid } from '@material-ui/core/Grid';
-
-import Header from './Header';
+import Header from './Header'
 import PostCard from './PostCard';
-import ReplyCard from './ReplyCard';
+import ReplyCard from './ReplyCard'
+
+import { makeStyles } from '@material-ui/core/styles';
+import SpeakerNotesIcon from '@material-ui/icons/SpeakerNotes';
+import Grid from '@material-ui/core/Grid';
+
 
 const useStyles = makeStyles(theme => ({
   header: {
