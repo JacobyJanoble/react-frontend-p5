@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import ChildCareIcon from '@material-ui/icons/ChildCare';
@@ -12,7 +12,7 @@ import SubjectIcon from '@material-ui/icons/Subject';
 import ShowChartIcon from '@material-ui/icons/ShowChart';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import { AccordionSummary } from '@material-ui/core';
+
 
 const useStyles= makeStyles((theme) => ({
     header: {
@@ -117,24 +117,27 @@ const useStyles= makeStyles((theme) => ({
 
 
 const Header = (props) => {
-    const currentUser = useSelector(state => state.user.currentUser)
+    const classes = useStyles();
+    // const currentUser = useSelector(state => state.user.currentUser)
 
     const handleLoginRender = (isLoggedIn) => {
-        if (isLoggedIn) {
-            return (
-                <div>
-
-
-                </div>
-            )
-        } else {
-            return (
-                <div>
-                    <Link></Link>
-                    <Link></Link>
-                </div>
-            )
-        }
+      if (isLoggedIn) {
+          return (
+            <div className={classes.userStateButtons}>
+              <AccountCircleIcon className={classes.supplementaryIcon}/>
+              <Link to={`/u/${localStorage.getItem('currentUserUsername')}`} className={classes.ribbonItems}>{localStorage.getItem('currentUserUsername')}</Link>
+              <ExitToAppIcon className={classes.supplementaryIcon}/>
+              <Link to="/logout" className={classes.ribbonItems}> Logout </Link>
+            </div>
+          )
+      }else {
+          return (
+          <div className={classes.userStateButtons}>
+              <Link to="/login" className={classes.ribbonItems}> Login </Link>
+              <Link to="/sign_up" className={classes.ribbonItems}> Sign Up </Link>
+          </div>
+          )
+      }
     }
 
     const handleSearchChange = (e) => {
@@ -142,37 +145,47 @@ const Header = (props) => {
         props.setSearchContent(e.target.value)
     }
 
+
   return (
-    <div>
-        <Link></Link>
-        <ul>
-            <div>
-                <div>
-                    <SearchIcon />
-                </div>
-
-                <InputBase
-                placeholder="Search..."
-                classes={{
-                    root: classes.inputRoot,
-                    input: classes.inputInput
-                }}
-                inputProps={{ 'aria-label': 'search'}}
-                onChange={(e) => handleSearchChange(e)}
-                />
-            </div>
-                <ShowChartIcon className = {classes.supplementaryIcon} />
-                <Link></Link>
-                <CreateIcon className = {classes.supplementaryIcon} />
-                <Link></Link>
-                <CreateIcon className = {classes.supplementaryIcon} />
-                <Link></Link>
-                <SubjectIcon className = {classes.supplementaryIcon} />
-                <Link></Link>
-                { handleLoginRender(localStorage.getItem('auth_key') !== 'undefined')}
+    <div className={classes.header}>
+      <Link className={classes.readitLogoText} to="/dashboard"> <Avatar className={classes.readitLogo}><ChildCareIcon fontSize='large'/></Avatar>readit </Link>
+      <ul className={classes.ribbonItemList}>
+        <div className={classes.search}>
+          <div className={classes.searchIcon}>
+            <SearchIcon />
+          </div>
+          <InputBase
+            placeholder="Search…"
+            classes={{
+              root: classes.inputRoot,
+              input: classes.inputInput,
+            }}
+            inputProps={{ 'aria-label': 'search' }}
+            onChange={(e) => handleSearchChange(e)}
+          />
+        </div>
+        {/* <select>
+          <option><Link to="/new_post"> Create Post </Link></option>
+          <option><Link to="/new_channel"> Create Channel </Link></option>
+        </select> */}
+        <ShowChartIcon className={classes.supplementaryIcon}/>
+        <Link to="/dashboard" className={classes.ribbonItems}> Home </Link>
+        <CreateIcon className={classes.supplementaryIcon}/>
+        <Link to="/new_post" className={classes.ribbonItems}> Create Post </Link>
+        <CreateIcon className={classes.supplementaryIcon}/>
+        <Link to="/new_channel" className={classes.ribbonItems}> Create Channel </Link>
+        <SubjectIcon className={classes.supplementaryIcon}/>
+        <Link to="/channels" className={classes.ribbonItems}> All Channels </Link>
+        {
+          handleLoginRender(localStorage.getItem('auth_key') !== 'undefined')
+        }
+      </ul>
+      {/* <div className={classes.sortingRibbon}>
+        <ul className={classes.header}>
+          <div>Hello There</div>
         </ul>
+      </div> */}
     </div>
-
   )
 }
 

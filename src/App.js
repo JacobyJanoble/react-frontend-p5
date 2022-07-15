@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { BrowserRouter as Router, Route, Navigate, Routes, } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { BrowserRouter as Route, Routes, Navigate} from 'react-router-dom';
 
 import Signup from './components/SignUp';
 import Login from './components/Login';
@@ -13,7 +13,7 @@ import ChannelList from './containers/ChannelList';
 import ChannelPage from './components/ChannelPage';
 
 function App() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
     let users
@@ -40,10 +40,10 @@ function App() {
         })
       })
     })
-  }, [])
+  }, [dispatch]);
 
-  const users = useSelector(state => state.user.allUsers)
-  const posts = useSelector(state => state.user.allPosts)
+  // const users = useSelector(state => state.user.allUsers)
+  // const posts = useSelector(state => state.user.allPosts)
 
   return (
     <div className="App" >
@@ -58,39 +58,25 @@ function App() {
             }
           }}/>
 
-          <Route path="/login" component={() => {
-            return <Login />
-          }}/>
+          <Route path="/login" element={<Login />} />
 
-          <Route path="/sign_up" component={() => {
-            return <Signup />
-          }}/>
+          <Route path="/sign_up" element={<Signup />} />
 
-          <Route path="/new_post" component={() => {
-            return <NewPostPage />
-          }}/>
+          <Route path="/new_post" element={<NewPostPage />} />
 
-          <Route path="/new_channel" component={() => {
-            return <NewChannelPage />
-          }}/>
+          <Route path="/new_channel" element={<NewChannelPage />} />
 
-          <Route exact path="/channels" component={() => {
-            return <ChannelList />
-          }}/>
+          <Route exact path="/channels" element={<ChannelList />} />
 
-          <Route path="/channels/readit/:channel_title" component={() => {
+          <Route path="/channels/readit/:channel_title" element={() => {
             return <ChannelPage />
           }}/>
 
-          <Route path="/u/:username" component={() => {
-            return <UserPage />
-          }}/>
+          <Route path="/u/:username" element={<UserPage />} />
 
-          <Route path="/posts/:post_id" component={() => {
-            return <PostPage />
-          }}/>
+          <Route path="/posts/:post_id" element={<PostPage />} />
 
-          <Route path="/logout" component={() => {
+          <Route path="/logout" element={() => {
             localStorage.setItem('auth_key','undefined')
             localStorage.setItem('currentUserUsername', 'undefined')
             return <Navigate to='/login' />
