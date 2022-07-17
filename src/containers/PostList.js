@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
 
 const PostList = (props) => {
   const classes = useStyles();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   return (
     <>

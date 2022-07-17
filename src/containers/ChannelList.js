@@ -119,7 +119,7 @@ const ChannelList = () => {
                     {channels.indexOf(channel + 1)}
                   </div>
                   <div className={classes.arrowContainer}>
-                    <ArrowDropUp className={classes.communityArrow}/>
+                    <ArrowDropUpIcon className={classes.communityArrow}/>
                   </div>
                   /{channel.title}
                 </Link>

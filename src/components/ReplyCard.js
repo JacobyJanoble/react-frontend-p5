@@ -142,6 +142,7 @@ const ReplyCard = (props) => {
 
   const currentPost = useSelector(state => state.posts.allPosts).find(post => post.id === props.post.id)
   const [post, setPost] = useState(currentPost)
+  const [replyPost, setReplyPost] = useState(currentPost)
 
   useEffect(() => {
     setPost(currentPost)
@@ -258,6 +259,7 @@ const ReplyCard = (props) => {
   }
 
 
+
   return (
     <>
 
@@ -281,11 +283,11 @@ const ReplyCard = (props) => {
               {(post.user.id !== currentUser.id)
               ?
               <div>
-                <ArrowUpward onClick={(e) => handleUpvote(e)} className={classes.likeArrow} fontSize='large' />
+                <ArrowUpwardIcon onClick={(e) => handleUpvote(e)} className={classes.likeArrow} fontSize='large' />
                 <Box></Box>
-                <ArrowDownward />
+                <ArrowDownwardIcon />
                 <Typography>
-                  <ChatBubble />
+                  <ChatBubbleIcon />
                 </Typography>
               </div>
 
@@ -298,7 +300,7 @@ const ReplyCard = (props) => {
                     <button type="submit" className={classes.submitButton}>Reply</button>
                 </form> : null}
               </div>
-              {post.posts.map(p => <ReplyCard key={p.id} post={p} handleSubmit={handleSubmit} setReplyPost={props.setReplyPost} parentWidth={cardWith}/>)}
+              {post.posts.map(p => <ReplyCard key={p.id} post={p} handleSubmit={props.handleSubmit} setReplyPost={props.setReplyPost} parentWidth={cardWidth}/>)}
 
           </Card>
         </Grid>

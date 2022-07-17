@@ -8,7 +8,7 @@ const postReducer = (state = initialState, action) => {
         case 'GET_POSTS' : {
             return {
                 ...state,
-                allPosts: action.posts
+                allPosts: action.payload
             }
         }
         case 'ADD_POST' : {
@@ -29,7 +29,7 @@ const postReducer = (state = initialState, action) => {
             let newAllPosts = state.allPosts.filter(post => post.id !== action.post.id)
             if (action.post.postable_type === "Post") {
                 let parentPost = newAllPosts.find(post => post.id === action.post.postable_id)
-                parentPost.posts.filter(po.id !== action.post.id)
+                parentPost.posts.filter( po => po.id !== action.post.id)
                 newAllPosts.filter(post => post.id !== parentPost.id)
                 newAllPosts = [...newAllPosts, parentPost]
             }

@@ -334,9 +334,9 @@ const PostCard = (props) => {
                     </div> :
                   <div className={classes.cardActions}>
                     {(props.post.user.id !== currentUser.id) ? <div>
-                      <ArrowDropUpIcon onClick={(e) => handleUpVote(e)} fontSize='large' className={classes.likeArrow}/>
+                      <ArrowDropUpIcon onClick={(e) => handleUpvote(e)} fontSize='large' className={classes.likeArrow}/>
                       <Box className={classes.likeCounter}>{(props.post.likes) ? props.post.likes.length-props.post.dislikes.length : 0}</Box>
-                      <ArrowDropDownIcon ml={0} onClick={(e) => handleDownVote(e)} fontSize='large' className={classes.likeArrow}/>
+                      <ArrowDropDownIcon ml={0} onClick={(e) => handleDownvote(e)} fontSize='large' className={classes.likeArrow}/>
 
                     </div> :
                     <div>

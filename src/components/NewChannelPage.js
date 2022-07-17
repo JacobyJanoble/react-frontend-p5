@@ -1,8 +1,11 @@
-import { CallMissedSharp, Code } from '@material-ui/icons';
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import Header from './Header';
+import {useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from "react-router-dom";
+
+import Header from './Header'
+
+import { makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
 
 // https://www.billboard.com/charts/greatest-hot-100-singles/
 const topSongs = [
@@ -18,7 +21,62 @@ const topSongs = [
   { title: 'Shape Of You', artist: 'Ed Sheeran' }
 ]
 
+const useStyles = makeStyles((theme) => ({
+  topRibbon: {
+      display: 'flex',
+      margin: theme.spacing(5,0,0,33),
+    },
+    topRibbonDivider: {
+      width: 717,
+      padding: 0,
+      display: 'block',
+      alignContent: 'center',
+      marginLeft: theme.spacing(33),
+      marginBottom: theme.spacing(1.5),
+      marginTop: theme.spacing(1.5),
+      border: '0.2px solid',
+      borderColor: '#FFFFFF'
+    },
+    textInputs: {
+        display: 'block',
+        fontFamily: 'Arial',
+        margin: theme.spacing(1.7,0,.5,1.7),
+        borderColor: '#E5E5E5',
+        border: '1px solid'
+    },
+    autocompleteSearch: {
+        backgroundColor: 'white',
+        marginLeft: theme.spacing(33),
+        borderRadius: '5px'
+    },
+    card: {
+      width: 717,
+      padding: 0,
+      display: 'block',
+      alignContent: 'center',
+      marginLeft: theme.spacing(33),
+      marginBottom: theme.spacing(5),
+      marginTop: theme.spacing(1.5),
+      border: '1px solid',
+      borderColor: '#C3C3C3'
+    },
+    submitButton: {
+        marginLeft: theme.spacing(78.8),
+        marginBottom: theme.spacing(1.7),
+        marginTop: theme.spacing(1),
+        height: theme.spacing(3.8),
+        width: theme.spacing(9),
+        borderRadius: '25px',
+        border: '0px solid',
+        backgroundColor: '#0079d3',
+        color: 'white',
+        fontWeight: 'bold',
+        cursor: 'pointer'
+    }
+}));
+
 const NewChannelPage = () => {
+  const classes = useStyles();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 

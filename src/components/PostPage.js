@@ -92,6 +92,8 @@ const PostPage = () => {
 
   const currentUser = useSelector(state => state.user.currentUser)
 
+  const [replyPost, setReplyPost] = useState(currentPost)
+
   const URL = useParams()
   const allPosts = useSelector(state => state.posts.allPosts)
   const currentPost = useSelector(state => state.user.currentUser)

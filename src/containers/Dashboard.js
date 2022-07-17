@@ -15,6 +15,8 @@ const Dashboard = () => {
 
   posts.sort((a, b) => (a.likes.length > b.likes.length) ? -1 : 1)
 
+  console.log(posts)
+
   return (
     <>
       <Header setSearchContent={setSearchContent} />

@@ -54,7 +54,7 @@ const Login = () => {
           username: e.target.querySelector('#username').value,
           password: e.target.querySelector('#password').value
         }
-        fetch('http://localhost:3000/login',{
+        fetch('/login',{
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
