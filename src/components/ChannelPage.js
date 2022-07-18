@@ -118,41 +118,87 @@ const ChannelPage = () => {
     let currentChannelPosts = false
     let currentChannel
 
+
     if (userFetch) {
         currentChannel = allChannels.find(channel => channel.title === URL.channel_title)
-        if (currentChannel.channelPmembers.find(chanMember => chanMember.user_id === currentUser.id) && stateJoined === false){
+        if (currentChannel.channel_members.find(chanMember => chanMember.user_id === currentUser.id) && stateJoined === false){
             console.log("current channel if statement")
             dispatch({type: 'SET_JOINED', joined: true})
-        } else if (!currentChannel.channel.members.find(chanMembers => chanMembers.user_id === currentUser.id) && stateJoined === true ){
+        } else if (!currentChannel.channel_members.find(chanMembers => chanMembers.user_id === currentUser.id) && stateJoined === true ){
             dispatch({type: 'SET_JOINED', joined: false })
         }
         const channelPosts = allPosts.filter(post => post.postable_type === "Channel")
         currentChannelPosts = channelPosts.filter(post => post.postable_id === currentChannel.id)
+        console.log(currentChannelPosts)
     }
 
     if (currentChannel) {
-        if (currentChannel.channel_owners.find(chanOwners => chanOwners.user_id === currentUser.id) && moderator == false){
+        if (currentChannel.channel_owners.find(chanOwners => chanOwners.user_id === currentUser.id) && moderator === false){
             setModerator(true)
         } else if (!currentChannel.channel_owners.find(chanOwner => chanOwner.user_id === currentUser.id) && moderator === true){
             setModerator(false)
         }
     }
 
+    // const handleLeave = (e) => {
+
+    //     if (stateJoined){
+    //         let chanMembs = currentChannel.channel_members.find(chanMemb => chanMemb.user_id === currentUser.id)
+
+    //         fetch(`channel_members/${chanMembs.id}`, {
+    //             method: 'DELETE',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //                 'Auth-key': localStorage.getItem('auth_key')
+    //             }
+    //         })
+    //         .then(resp => resp.json())
+    //         .then(data => {
+    //             console.log(data)
+    //         })
+    //     }
+    // }
+
     const handleJoin = (e) => {
-
+        console.log(e.target)
         if (stateJoined){
-            let chanMembs = currentChannel.channel_members.find(chanMemb => chanMemb.user_id === currentUser.id)
-
-            fetch(`fetch('http://localhost:3000/channel_members/${chanMembs.id})`, {
+            // dispatch({type: 'SET_JOINED', joined: false})
+            // I think that this setJoined dispatch is antiquted, needs confirmation.
+            let chanMem = currentChannel.channel_members.find(c_m => c_m.user_id === currentUser.id)
+            fetch(`/channel_members/${chanMem.id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Auth-key': localStorage.getItem('auth_key')
+                    'Auth-Key': localStorage.getItem('auth_key')
                 }
             })
-            .then(resp => resp.json())
+            .then(res => res.json())
             .then(data => {
                 console.log(data)
+                // dispatch({type: 'SET_JOINED', joined: false})
+                // see above comment
+                console.log(`You have successfully left /p/${currentChannel.title}'s membership.`)
+            })
+        } else {
+            // dispatch({type: 'SET_JOINED', joined: true})
+            // see above comment
+            fetch(`/channel_members`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Auth-Key': localStorage.getItem('auth_key')
+                },
+                body: JSON.stringify({
+                    channel_id: currentChannel.id,
+                    user_id: currentUser.id
+                })
+            })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                // dispatch({type: 'SET_JOINED', joined: true})
+                // see above comment
+                console.log(`You have successfully become a member of /p/${currentChannel.title}.`)
             })
         }
     }
@@ -178,7 +224,7 @@ const ChannelPage = () => {
                                 </div>
 
                                 <div className={classes.channelUrl}>
-                                    readit/{currentChannel.title}
+                                    Pursue/{currentChannel.title}
                                 </div>
                             </div>
                         </div>

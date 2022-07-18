@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+
+import { useParams } from 'react-router-dom';
 
 import {useDispatch} from 'react-redux'
 import Button from '@material-ui/core/Button';
@@ -187,7 +189,7 @@ const PostCard = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const currentUser = useSelector(state => state.user/currentUser)
+  const currentUser = useSelector(state => state.user.currentUser)
 
   const [editForm, setEditForm] = useState(false)
   const [formTitle, setFormTitle] = useState(props.post.title)
@@ -211,35 +213,40 @@ const PostCard = (props) => {
       })
     })
     .then(resp => resp.json())
-    .then( data => {
+    .then(data => {
       console.log(data)
-      dispatchEvent({type:'UPDATE_POST', post: data})
+      dispatch({type:'UPDATE_POST', post: data})
       setEditForm(false)
     })
   };
 
   const handleDelete = () => {
-    fetch(`http://localhost:3000/posts/${props.post.id}`, {
+    fetch(`posts/${props.post.id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json'
       }
     })
-    dispatchEvent({type:'DELETE_POST', post: props.post})
+    dispatch({type:'DELETE_POST', post: props.post})
     props.deletePost(props.post)
   };
 
   const handleFormChange = (e) => {
+
     if (e.target.id === 'title') {
       setFormTitle(e.target.value)
+    } else {
+      setFormContent(e.target.value)
     }
   };
 
+
   const handleUpvote = (e) => {
+
     console.log(e.target)
     if (currentUser.dislikes.find(dislike => dislike.post_id === props.post.id)) {
       let dislikeId = currentUser.dislikes.find(dislike => dislike.post_id === props.post.id).id
-      fetch(`http://localhost:3000/undislike_like`, {
+      fetch('/undislike_like', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -253,10 +260,10 @@ const PostCard = (props) => {
       .then( resp => resp.json() )
       .then( dislikeData => {
         console.log(dislikeData)
-        dispatch({type:'UNDISLIKE_LIKE', changes:{dislike:dislikeId, like:dislikeData}})
+        dispatch({type:'UNDISLIKE_LIKE', changes:{dislike: dislikeId, like: dislikeData}})
       })
     } else {
-      fetch('http://localhost:3000/likes', {
+      fetch('/likes', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -279,10 +286,10 @@ const PostCard = (props) => {
     console.log(e.target)
     if(currentUser.likes.find(like => like.post_id === props.post.id)) {
       let tempLike = currentUser.likes.find(like => like.post_id === props.post.id)
-      fetch(`http://localhost:3000/unlike_dislike`, {
+      fetch(`/unlike_dislike`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application.json'
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           user_id: currentUser.id,
@@ -296,7 +303,7 @@ const PostCard = (props) => {
         dispatch({type: 'UNLIKE_DISLIKE', dislike: dislikeData, like: tempLike})
       })
     } else {
-      fetch('http://localhost:3000/dislikes', {
+      fetch('/dislikes', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -315,7 +322,7 @@ const PostCard = (props) => {
     }
   };
 
-
+console.log(props.post)
 
   return (
     <>
@@ -333,7 +340,7 @@ const PostCard = (props) => {
                     <Box className={classes.homeSelfLikeCounter}>Likes: {(props.post.likes) ? props.post.likes.length-props.post.dislikes.length : 0}</Box>
                     </div> :
                   <div className={classes.cardActions}>
-                    {(props.post.user.id !== currentUser.id) ? <div>
+                    {(props.post.user_id !== currentUser.id) ? <div>
                       <ArrowDropUpIcon onClick={(e) => handleUpvote(e)} fontSize='large' className={classes.likeArrow}/>
                       <Box className={classes.likeCounter}>{(props.post.likes) ? props.post.likes.length-props.post.dislikes.length : 0}</Box>
                       <ArrowDropDownIcon ml={0} onClick={(e) => handleDownvote(e)} fontSize='large' className={classes.likeArrow}/>
@@ -357,7 +364,7 @@ const PostCard = (props) => {
                           : null}
                           <div className={classes.postedBy}>
                             ○ Posted by: u/
-                            <Link to={`/u/${props.post.user.username}`} className={classes.postedByLink}>
+                            <Link to={`/u/${props.post.username}`} className={classes.postedByLink}>
                               {(props.post.user) ? props.post.user.username : currentUser.username}
                             </Link>
                           </div>

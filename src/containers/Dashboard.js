@@ -20,7 +20,7 @@ const Dashboard = () => {
   return (
     <>
       <Header setSearchContent={setSearchContent} />
-       <PostList posts={posts2}/>
+      <PostList posts={posts2}/>
     </>
 
   )

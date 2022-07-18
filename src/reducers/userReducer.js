@@ -7,7 +7,7 @@ const initialState = {
         email: ''
     },
     notifications: [],
-    userFetch: false,
+    userFetch: true,
 }
 
 const userReducer = (state = initialState, action) => {

@@ -4,8 +4,7 @@ import rootReducer from './reducers/index'
 export function configureStore() {
     return createStore(
         rootReducer,
-        window.__REDUX_DEVTOOLS_EXTENSIONS_ && window.__REDUX_DEVTOOLS_EXTENSIONS_()
-    );
+        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()    );
 }
 
 const store = configureStore()

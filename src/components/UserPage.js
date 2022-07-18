@@ -136,6 +136,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const UserPage = () => {
+
   const classes = useStyles();
   const dispatch = useDispatch();
   const URL = useParams()
@@ -146,10 +147,12 @@ const UserPage = () => {
   const users = useSelector(state => state.user.allUsers)
   const [allUsers, setAllUsers] = useState(users)
 
+  console.log(users)
+
   const posts = useSelector(state => state.posts.allPosts)
   const [allPosts, setAllPosts] = useState(posts)
 
-  const [showLiked, setShowLiked] = useState(false)
+  const [showLiked, setShowLiked] = useState(true)
 
   const [showModerator, setShowModerator] = useState(false)
   const [showBan, setShowBan] = useState(false)
@@ -163,9 +166,11 @@ const UserPage = () => {
 
     if (userFetch) {
       user = allUsers.find(u => u.username === URL.username)
-      likedPosts = allPosts.filter(post => (post.likes.find(like => like.user_id === user.id)) ? true : false)
-        // console.log(user)
-        userPosts = allPosts.filter(post => post.user.username === user.username)
+    //   console.log(user)
+      likedPosts = allPosts.filter(post => post.likes.find(like => like.user_id === user.user_id) ? true : false)
+        console.log(user)
+        userPosts = allPosts.filter(post => post.username === user.username)
+        // console.log(userPosts)
 
         currentUsersChannels = allChannels.filter(ch => ch.channel_owners.find(c_o => c_o.user_id === currentUser.id) && ch.channel_members.find(c_m => c_m.user_id === user.id))
     }
@@ -187,7 +192,7 @@ const UserPage = () => {
       console.log(e.target)
 
         let channel = allChannels.find(ch => ch.title === e.target.firstElementChild.value)
-        fetch(`http://localhost:3000/channel_owners`, {
+        fetch(`/channel_owners`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -214,7 +219,7 @@ const UserPage = () => {
       console.log(userFetch)
       if(user.channel_members.find(c_m => c_m.channel_id === channel.id)){
           let channelMember = user.channel_members.find(c_m => c_m.channel_id === channel.id)
-          fetch(`http://localhost:3000/channel_members/${channelMember.id}`, {
+          fetch(`channel_members/${channelMember.id}`, {
               method: 'DELETE',
               headers: {
                   'Content-Type': 'application/json',
@@ -248,7 +253,7 @@ const UserPage = () => {
                             {user.email}
                         </div>
                         <div className={classes.postsCounter}>
-                            Posts: {userPosts.length} <div className={classes.textDivider}>○</div> Channels: {(user) ? user.channel_members.length : null}
+                            <div className={classes.textDivider}>○</div> Channels: {(user) ? user.channel_members.length : null}
                         </div>
                         {/* fix this later */}
                         {

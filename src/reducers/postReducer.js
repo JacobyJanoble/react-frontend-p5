@@ -15,14 +15,14 @@ const postReducer = (state = initialState, action) => {
             return {
                 ...state,
                 allPosts: [...state.allPosts, action.post],
-                newPost: action.post
+                newPost: action.payload
             }
         }
         case 'UPDATE_POST' : {
             let newAllPosts = state.allPosts.filter(post => post.id !== action.post.id)
             return {
                 ...state,
-                allPosts: [...newAllPosts, action.post]
+                allPosts: [...newAllPosts, action.payload]
             }
         }
         case 'DELETE_POST' : {
@@ -42,6 +42,8 @@ const postReducer = (state = initialState, action) => {
             let parentPost = state.allPosts.find(post => post.id === action.reply.postable_id)
             let newAllPosts = state.allPosts.filter(post => post.id !== action.reply.postable_id)
 
+            console.log(parentPost)
+
             parentPost.posts = [...parentPost.posts, action.reply]
             return {
                 ...state,
@@ -49,12 +51,12 @@ const postReducer = (state = initialState, action) => {
             }
         }
         case 'LIKE' : {
-            let newAllPosts = state.allPosts.filter(post => post.id !== action.like.post_id)
-            let likedPost = state.allPosts.find(post => post.id!== action.lile.post_id)
-            likedPost.likes.push(action.like)
+            let newAllPosts = state.allPosts.filter(post => post.id !== action.post_id)
+            let likedPost = state.allPosts.find(post => post.id !== action.like.post_id)
+            likedPost.likes = [...likedPost.likes, action.like]
             return {
                 ...state,
-                allPosts: [likedPost, ...newAllPosts]
+                allPosts: [...newAllPosts, likedPost]
             }
         }
         case 'UNLIKE' : {

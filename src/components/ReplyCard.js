@@ -158,7 +158,7 @@ const ReplyCard = (props) => {
 
     if (currentUser.dislikes.find(dislike => dislike.post_id === post.id)) {
       let dislikeId = currentUser.dislikes.find(dislike => dislike.post_id === post.id).id
-      fetch(`http://localhost:3000/dislikes/${dislikeId}`, {
+      fetch(`/dislikes/${dislikeId}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -169,7 +169,7 @@ const ReplyCard = (props) => {
       .then(dislikeData => {
         console.log(dislikeData)
         dispatch({type:'UNDISLIKE', dislike: dislikeData})
-        fetch ('http://localhost:300/likes', {
+        fetch ('/likes', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -264,48 +264,46 @@ const ReplyCard = (props) => {
     <>
 
       {(post) ?
-        <Grid>
-          <Card>
-            <div>
-              <AccountCircleIcon />
-              <div>
-                <Typography>
-                  <div></div>
-                </Typography>
-                <Typography>
-                  {post.content}
-                </Typography>
-              </div>
-            </div>
+            <Grid item key={post.id}>
+                <Card className={classes.card} variant="outlined">
+                    <div className={classes.cardContentShell}>
+                      <AccountCircleIcon className={classes.avatar}/>
+                      <div className={classes.cardContent} >
+                          <Typography className={classes.channelUrl}>
+                              <div className={classes.postedBy}><Link to={`/u/${post.user.username}`} className={classes.postedByLink}>{(post.user) ? post.user.username : currentUser.username}</Link></div>
+                          </Typography>
+                          <Typography>
+                              {post.content}
+                          </Typography>
+                      </div>
+                    </div>
 
             <div>
-
-              {(post.user.id !== currentUser.id)
-              ?
-              <div>
-                <ArrowUpwardIcon onClick={(e) => handleUpvote(e)} className={classes.likeArrow} fontSize='large' />
-                <Box></Box>
-                <ArrowDownwardIcon />
-                <Typography>
-                  <ChatBubbleIcon />
-                </Typography>
-              </div>
-
-              : null }
-            </div>
-            <div className={classes.commentReplyBox}>
-                {(reply) ?
-                <form onSubmit={(e) => props.handleSubmit(e)}>
-                    <textarea id="content" placeholder="What are you thoughts?" cols='90' rows='9' className={classes.textInputs}></textarea>
-                    <button type="submit" className={classes.submitButton}>Reply</button>
-                </form> : null}
-              </div>
-              {post.posts.map(p => <ReplyCard key={p.id} post={p} handleSubmit={props.handleSubmit} setReplyPost={props.setReplyPost} parentWidth={cardWidth}/>)}
-
-          </Card>
-        </Grid>
-      : null }
-
+                {(post.user.id !== currentUser.id)
+                      ?
+                      <div className={classes.cardActions}>
+                        <ArrowUpwardIcon onClick={(e) => handleUpvote(e)} fontSize='large' className={classes.likeArrow}/>
+                        <Box className={classes.likeCounter}>{(post.likes) ? post.likes.length-post.dislikes.length : 0}</Box>
+                        <ArrowDownwardIcon ml={0} onClick={(e) => handleDownvote(e)} fontSize='large' className={classes.dislikeArrow}/>
+                        <Typography onClick={() => handleSetReply()} className={classes.replyText}>
+                            <ChatBubbleIcon className={classes.chatBubbleIcon}/>Reply
+                        </Typography>
+                      </div>
+                      :
+                      null
+                      }
+                    </div>
+                    <div className={classes.commentReplyBox}>
+                        {(reply) ?
+                            <form onSubmit={(e) => props.handleSubmit(e)}>
+                                <textarea id="content" placeholder="What are you thoughts?" cols='90' rows='9' className={classes.textInputs}></textarea>
+                                <button type="submit" className={classes.submitButton}>Reply</button>
+                            </form> : null}
+                    </div>
+                    {post.posts.map(p => <ReplyCard key={p.id} post={p} handleSubmit={props.handleSubmit} setReplyPost={props.setReplyPost} parentWidth={cardWidth}/>)}
+                </Card>
+            </Grid>
+          : null }
     </>
   )
 }

@@ -148,7 +148,7 @@ const Header = (props) => {
 
   return (
     <div className={classes.header}>
-      <Link className={classes.readitLogoText} to="/dashboard"> <Avatar className={classes.readitLogo}><ChildCareIcon fontSize='large'/></Avatar>readit </Link>
+      <Link className={classes.readitLogoText} to="/dashboard"> <Avatar className={classes.readitLogo}><ChildCareIcon fontSize='large'/></Avatar>Pursue </Link>
       <ul className={classes.ribbonItemList}>
         <div className={classes.search}>
           <div className={classes.searchIcon}>

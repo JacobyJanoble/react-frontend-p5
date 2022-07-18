@@ -96,9 +96,9 @@ const useStyles = makeStyles((theme) => ({
 
 const ChannelList = () => {
   const classes = useStyles();
-  const dispatch = useDispatch();
 
   let channels = useSelector(state => state.channels.allChannels)
+  console.log(channels)
   channels.sort((a, b) => (a.channel_members.length > b.channel_members.length) ? -1 : 1)
 
   return (
@@ -112,9 +112,9 @@ const ChannelList = () => {
         </Card>
         <Card className={classes.card} variant="outlined">
           {
-            channels.map(channel =>
-              <div className={classes.communityContainer}>
-                <Link to={`channels/readit/${channel.title}`} className={classes.communityLink}>
+            channels.map((channel, i) =>
+              <div className={classes.communityContainer} key={i}>
+                <Link to={`readit/${channel.title}`} className={classes.communityLink}>
                   <div className={classes.channelNumber}>
                     {channels.indexOf(channel + 1)}
                   </div>

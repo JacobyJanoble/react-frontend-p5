@@ -25,11 +25,16 @@ const PostList = (props) => {
   const classes = useStyles();
   // const dispatch = useDispatch();
 
+  // let posts = useSelector(state => state.posts.allPosts)
+  // posts.filter(p => p.title === props.searchContent || p.content === props.searchContent)
+  // posts.sort((a, b) => (a.likes.length > b.likes.length) ? -1 : 1)
+  // products.sort((a, b) => (a.price > b.price) ? 1 : -1)
+
   return (
     <>
       <Grid container className={classes.pList} spacing={2}>
         {(props.posts) ?
-          props.posts.map(post => {if (post.postable_type === "Channel") {return <PostCard key={post.id} post={post}/>}else{return null}})
+          props.posts.map(post => <PostCard key={post.id} post={post}/>)
         : null
         }
       </Grid>

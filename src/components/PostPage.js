@@ -92,15 +92,15 @@ const PostPage = () => {
 
   const currentUser = useSelector(state => state.user.currentUser)
 
+  const allPosts = useSelector(state => state.posts.allPosts)
+  const URL = useParams()
+  const currentPost = allPosts.find(post => post.id === parseInt(URL.post_id))
   const [replyPost, setReplyPost] = useState(currentPost)
 
-  const URL = useParams()
-  const allPosts = useSelector(state => state.posts.allPosts)
-  const currentPost = useSelector(state => state.user.currentUser)
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    fetch('http://localhost:3000/posts', {
+    fetch('/posts', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -119,6 +119,8 @@ const PostPage = () => {
       dispatch({type: 'ADD_REPLY', reply: data})
     })
   }
+
+
   return (
     <div>
       <Header />
@@ -137,7 +139,7 @@ const PostPage = () => {
                 Comment as <Link to={`/user/${currentUser.username}`}>{currentUser.username}</Link>
               </div>
               <form onSubmit={(e) => handleSubmit(e)} onClick={() => setReplyPost(currentPost)}>
-                <textarea className={classes.textInputes} handleSubmit={handleSubmit} placeholder="Want to share your thoughts?" cols='90' rows='9' id='content'></textarea>
+                <textarea className={classes.textInputes} placeholder="Want to share your thoughts?" cols='90' rows='9' id='content'></textarea>
                 <button type="submit" className={classes.submitButton}>Comment</button>
               </form>
               <Grid container className={classes.pList} spacing={2}>

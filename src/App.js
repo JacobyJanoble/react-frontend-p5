@@ -44,6 +44,8 @@ function App() {
   //   })
   // }, [dispatch]);
 
+  const users = useSelector(state => state.user.allUsers)
+  const posts = useSelector(state => state.user.allPosts)
   useEffect(()=> {
     let users
     let channels
@@ -82,10 +84,8 @@ function App() {
         })
       })
     })
-  }, [])
+  }, [posts])
 
-  const users = useSelector(state => state.user.allUsers)
-  const posts = useSelector(state => state.user.allPosts)
 
   let isAuthorized = localStorage.getItem('auth_key') !== 'undefined'
 
