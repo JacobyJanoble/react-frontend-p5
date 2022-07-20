@@ -142,7 +142,7 @@ const ReplyCard = (props) => {
 
   const currentPost = useSelector(state => state.posts.allPosts).find(post => post.id === props.post.id)
   const [post, setPost] = useState(currentPost)
-  const [replyPost, setReplyPost] = useState(currentPost)
+  // const [replyPost, setReplyPost] = useState(currentPost)
 
   useEffect(() => {
     setPost(currentPost)
@@ -187,7 +187,7 @@ const ReplyCard = (props) => {
         })
       })
     } else {
-      fetch('http://localhost:3000/likes', {
+      fetch('/likes', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -210,7 +210,7 @@ const ReplyCard = (props) => {
     console.log(e.target)
     if(currentUser.likes.find(like => like.post_id === post.id)){
       let likeId = currentUser.likes.find(like => like.post_id === post.id).id
-      fetch(`http://localhost:3000/likes/${likeId}`, {
+      fetch(`/likes/${likeId}`, {
         method: 'DELETE',
         headers: {
           "Content-Type": "application/json",
@@ -221,7 +221,7 @@ const ReplyCard = (props) => {
       .then(likeData => {
         console.log(likeData)
         dispatch({type:'UNLIKE', like:likeData})
-        fetch('http://localhost:3000/dislikes', {
+        fetch('/dislikes', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -239,7 +239,7 @@ const ReplyCard = (props) => {
         })
       })
   } else {
-    fetch('http://localhost:3000/dislikes', {
+    fetch('/dislikes', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

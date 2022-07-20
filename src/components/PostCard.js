@@ -201,7 +201,7 @@ const PostCard = (props) => {
 
   const handleFormSubmit = (e) => {
     e.preventDefault()
-    fetch(`http://localhost:3000/posts/${props.post.id}`, {
+    fetch(`/posts/${props.post.id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -221,7 +221,7 @@ const PostCard = (props) => {
   };
 
   const handleDelete = () => {
-    fetch(`posts/${props.post.id}`, {
+    fetch(`/posts/${props.post.id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json'

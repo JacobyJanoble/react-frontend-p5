@@ -7,8 +7,9 @@ const initialState = {
         email: ''
     },
     notifications: [],
-    userFetch: true,
+    userFetch: false,
 }
+
 
 const userReducer = (state = initialState, action) => {
     switch (action.type) {

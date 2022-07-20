@@ -1,5 +1,5 @@
 import React from 'react';
-// import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import ChildCareIcon from '@material-ui/icons/ChildCare';
@@ -118,14 +118,14 @@ const useStyles= makeStyles((theme) => ({
 
 const Header = (props) => {
     const classes = useStyles();
-    // const currentUser = useSelector(state => state.user.currentUser)
+    const currentUser = useSelector(state => state.user.currentUser)
 
     const handleLoginRender = (isLoggedIn) => {
       if (isLoggedIn) {
           return (
             <div className={classes.userStateButtons}>
               <AccountCircleIcon className={classes.supplementaryIcon}/>
-              <Link to={`/u/${localStorage.getItem('currentUserUsername')}`} className={classes.ribbonItems}>{localStorage.getItem('currentUserUsername')}</Link>
+              <Link to={`/p/${localStorage.getItem('currentUserUsername')}`} className={classes.ribbonItems}>{localStorage.getItem('currentUserUsername')}</Link>
               <ExitToAppIcon className={classes.supplementaryIcon}/>
               <Link to="/logout" className={classes.ribbonItems}> Logout </Link>
             </div>

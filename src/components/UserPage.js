@@ -164,10 +164,11 @@ const UserPage = () => {
 
     const userFetch = useSelector(state => state.user.userFetch)
 
-    if (userFetch) {
-      user = allUsers.find(u => u.username === URL.username)
-    //   console.log(user)
-      likedPosts = allPosts.filter(post => post.likes.find(like => like.user_id === user.user_id) ? true : false)
+    console.log(userFetch)
+    if (userFetch ) {
+        user = allUsers.find(u => u.username === u.username)
+    console.log(user)
+        likedPosts = allPosts.filter(post => post.likes.find(like => like.user_id === user.id) ? true : false)
         console.log(user)
         userPosts = allPosts.filter(post => post.username === user.username)
         // console.log(userPosts)
@@ -247,13 +248,13 @@ const UserPage = () => {
                     </Avatar>
                     <div>
                         <div className={classes.userName}>
-                            u/{URL.username}
+                            p/{user.username}
                         </div>
                         <div className={classes.emailText}>
                             {user.email}
                         </div>
                         <div className={classes.postsCounter}>
-                            <div className={classes.textDivider}>○</div> Channels: {(user) ? user.channel_members.length : null}
+                            <div className={classes.textDivider}>○</div> Channels: 4
                         </div>
                         {/* fix this later */}
                         {
