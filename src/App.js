@@ -80,7 +80,7 @@ function App() {
           <Route path="/new_post" element={<NewPostPage />} />
           <Route path="/new_channel" element={<NewChannelPage />} />
           <Route exact path="/channels" element={<ChannelList />} />
-          <Route path="/channels/readit/:channel_title" element={<ChannelPage />}/>
+          <Route path="/channels/pursue/:channel_title" element={<ChannelPage />}/>
           <Route path="/u/:username" element={<UserPage />} />
           <Route path="/posts/:post_id" element={<PostPage />} />
 

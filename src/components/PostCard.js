@@ -221,7 +221,7 @@ const PostCard = (props) => {
   };
 
   const handleDelete = () => {
-    fetch(`/posts/${props.post.id}`, {
+    fetch(`posts/${props.post.id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json'
@@ -358,7 +358,7 @@ console.log(props.post)
                   <div className={classes.cardContent} >
                       <div className={classes.channelUrl}>
                           {(props.post.postable_type === 'Channel')
-                          ? 'r/' : null }
+                          ? 'p/' : null }
                           {(props.post.postable)
                           ? props.post.postable.title
                           : null}

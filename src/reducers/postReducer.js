@@ -19,17 +19,17 @@ const postReducer = (state = initialState, action) => {
             }
         }
         case 'UPDATE_POST' : {
-            let newAllPosts = state.allPosts.filter(post => post.id !== action.post.id)
+            let newAllPosts = state.allPosts.filter(post => post.id !== action.payload.id).id
             return {
                 ...state,
                 allPosts: [...newAllPosts, action.payload]
             }
         }
         case 'DELETE_POST' : {
-            let newAllPosts = state.allPosts.filter(post => post.id !== action.post.id)
-            if (action.post.postable_type === "Post") {
-                let parentPost = newAllPosts.find(post => post.id === action.post.postable_id)
-                parentPost.posts.filter( po => po.id !== action.post.id)
+            let newAllPosts = state.allPosts.filter(post => post.id !== action.payload.id).id
+            if (action.payload.postable_type === "Post") {
+                let parentPost = newAllPosts.find(post => post.id === action.payload.postable_id)
+                parentPost.posts.filter( po => po.id !== action.payload.id)
                 newAllPosts.filter(post => post.id !== parentPost.id)
                 newAllPosts = [...newAllPosts, parentPost]
             }

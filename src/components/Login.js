@@ -41,9 +41,10 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 const Login = () => {
+
     const classes = useStyles();
-    const dispatch = useDispatch();
     let navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const [msg, setMsg] = useState(false);
 
@@ -75,6 +76,10 @@ const Login = () => {
           }
         })
       }
+
+      // const toggleLogin = () => {
+
+      // }
 
   return (
     <Container component="main" maxWidth="xs">

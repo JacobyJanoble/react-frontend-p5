@@ -10,7 +10,6 @@ const initialState = {
     userFetch: false,
 }
 
-
 const userReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'GET_USERS' : {

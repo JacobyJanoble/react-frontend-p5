@@ -145,7 +145,7 @@ const ChannelPage = () => {
     //     if (stateJoined){
     //         let chanMembs = currentChannel.channel_members.find(chanMemb => chanMemb.user_id === currentUser.id)
 
-    //         fetch(`channel_members/${chanMembs.id}`, {
+    //         fetch(`channel_members/${chanMembs.id})`, {
     //             method: 'DELETE',
     //             headers: {
     //                 'Content-Type': 'application/json',

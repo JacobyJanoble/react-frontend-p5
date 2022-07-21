@@ -4,6 +4,7 @@ const initialState = {
 }
 
 const channelReducer = (state = initialState, action) => {
+
     switch (action.type) {
         case 'GET_CHANNELS' : {
             return {
@@ -30,6 +31,7 @@ const channelReducer = (state = initialState, action) => {
         default:
         return state;
     }
+
 };
 
 export default channelReducer;

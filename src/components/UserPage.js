@@ -254,7 +254,7 @@ const UserPage = () => {
                             {user.email}
                         </div>
                         <div className={classes.postsCounter}>
-                            <div className={classes.textDivider}>○</div> Channels: 4
+                            <div className={classes.textDivider}>○</div> Channels: 5
                         </div>
                         {/* fix this later */}
                         {
