@@ -85,6 +85,7 @@ function App() {
           <Route path="/posts/:post_id" element={<PostPage />} />
 
           <Route path="/redirect" element= {<Navigate to="/login" />} />
+          <Route path='/logout' element={<Navigate to='/login'/>} />
 
 
       </Routes>
